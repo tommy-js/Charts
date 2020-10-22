@@ -1,4 +1,4 @@
-import { variables } from "./configurationVar.js";
+import { variables, data } from "./configurationVar.js";
 
 render();
 
@@ -40,6 +40,13 @@ function render() {
   visualBlock.style = `position: relative; display: block; height: ${visualBlockHeight}px; width: ${innerWidth}px; border: ${variables.border}; box-sizing: border-box;`;
   innerBlock.appendChild(visualBlock);
 
+  // Creates pie chart element.
+  let pieChart = document.createElement("ul");
+  pieChart.setAttribute("class", "pie_chart");
+  let scaledSize = innerWidth * 0.9;
+  pieChart.style = `width: ${scaledSize}px; height: ${scaledSize}px;`;
+  visualBlock.appendChild(pieChart);
+
   // Creates text element.
   let textBlock = document.createElement("div");
   let textBlockHeight = innerHeight * 0.1;
@@ -47,4 +54,27 @@ function render() {
   innerBlock.appendChild(textBlock);
 
   // Creates pie-chart elements.
+  for (let i = 0; i < data.length; i++) {
+    castPie(data[i].title, data[i].fraction);
+  }
+}
+
+function castPie(title, fraction) {
+  // Creates list element component.
+  let slice = document.createElement("li");
+  slice.classList.add("slice");
+
+  let sliceContents = document.createElement("div");
+  sliceContents.classList.add("slice-contents");
+
+  let largeBlock = document.getElementsByClassName("pie_chart");
+  slice.appendChild(sliceContents);
+  largeBlock[0].appendChild(slice);
+
+  slice.addEventListener("mouseover", function () {
+    sliceContents.style = "background-color: red";
+  });
+  slice.addEventListener("mouseout", function () {
+    sliceContents.style = "background-color: teal";
+  });
 }

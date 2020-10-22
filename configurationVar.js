@@ -7,4 +7,15 @@ export const variables = {
   border: "1px solid red",
 };
 
-export const data = {};
+export const data = [
+  {
+    title: "test 1",
+    fraction: 45,
+    color: "blue",
+  },
+  {
+    title: "test 2",
+    fraction: 55,
+    color: "green",
+  },
+];
