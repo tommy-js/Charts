@@ -55,31 +55,34 @@ function render() {
 
   // Creates pie-chart elements.
   for (let i = 0; i < data.length; i++) {
-    castPie(data[i].title, data[i].fraction);
+    castPie(data[i].title, data[i].fraction, data[i].color, i, data);
   }
 }
 
-function castPie(title, fraction) {
+async function castPie(title, fraction, color, i, data) {
+  // Calculates necessary rotation and width of the slice.
+  let sliceWidth = 360 * (fraction / 100);
+  console.log("sliceWidth: " + sliceWidth);
+  let move = 0;
+  for (let j = 0; j < i; j++) {
+    let indSliceWidth = 360 * (data[j].fraction / 100);
+    move += indSliceWidth;
+  }
+  console.log(move);
+
   // Creates list element component.
   let slice = document.createElement("li");
   slice.classList.add("slice");
+  slice.classList.add(`slice${i}`);
+  slice.style = `transform: rotate(${move}deg) skewY(${sliceWidth}deg);`;
 
   let sliceContents = document.createElement("div");
   sliceContents.classList.add("slice-contents");
+  sliceContents.style = `background-color: ${color}; transform: skewY(-${sliceWidth}deg);`;
 
   let largeBlock = document.getElementsByClassName("pie_chart");
   slice.appendChild(sliceContents);
   largeBlock[0].appendChild(slice);
-
-  let firstChildSliceContentsSelector = document.querySelector(
-    "li:first-child, .slice-contents"
-  );
-  firstChildSliceContentsSelector.style = "transform: skewY(0deg);";
-  largeBlock[0].appendChild(firstChildSliceContentsSelector);
-
-  let firstChildSelector = document.querySelector("li:first-child");
-  firstChildSelector.style = "transform: rotate(75deg) skewY(0deg);";
-  largeBlock[0].appendChild(firstChildSelector);
 
   slice.addEventListener("mouseover", function () {
     sliceContents.style = "background-color: red";

@@ -10,7 +10,7 @@ export const variables = {
 export const data = [
   {
     title: "test 1",
-    fraction: 45,
+    fraction: 15,
     color: "blue",
   },
   {
