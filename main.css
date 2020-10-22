@@ -8,10 +8,6 @@
   transform-origin: 0% 100%;
 }
 
-.slice:first-child {
-  transform: rotate(15deg) skewY(-22.5deg);
-}
-
 .slice-contents {
   position: absolute;
   left: -100%;
@@ -19,9 +15,6 @@
   height: 200%;
   border-radius: 50%;
   background-color: lightblue;
-}
-.slice:first-child .slice-contents {
-  transform: skewY(22.5deg); /* unskew slice contents */
 }
 
 .pie_chart {

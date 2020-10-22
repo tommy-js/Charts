@@ -71,6 +71,16 @@ function castPie(title, fraction) {
   slice.appendChild(sliceContents);
   largeBlock[0].appendChild(slice);
 
+  let firstChildSliceContentsSelector = document.querySelector(
+    "li:first-child, .slice-contents"
+  );
+  firstChildSliceContentsSelector.style = "transform: skewY(0deg);";
+  largeBlock[0].appendChild(firstChildSliceContentsSelector);
+
+  let firstChildSelector = document.querySelector("li:first-child");
+  firstChildSelector.style = "transform: rotate(75deg) skewY(0deg);";
+  largeBlock[0].appendChild(firstChildSelector);
+
   slice.addEventListener("mouseover", function () {
     sliceContents.style = "background-color: red";
   });
