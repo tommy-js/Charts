@@ -50,7 +50,8 @@ function render() {
   // Creates text element.
   let textBlock = document.createElement("div");
   let textBlockHeight = innerHeight * 0.1;
-  textBlock.style = `position: relative; display: block; height: ${textBlockHeight}px; width: ${innerWidth}px; border: ${variables.border}; box-sizing: border-box;`;
+  textBlock.style = `position: relative; text-align: center; display: block; height: ${textBlockHeight}px; width: ${innerWidth}px; border: ${variables.border}; box-sizing: border-box; transition: 0.2s;`;
+  textBlock.setAttribute("class", "textBlock");
   innerBlock.appendChild(textBlock);
 
   // Creates pie-chart elements.
@@ -74,20 +75,27 @@ async function castPie(title, fraction, color, i, data) {
   let slice = document.createElement("li");
   slice.classList.add("slice");
   slice.classList.add(`slice${i}`);
-  slice.style = `transform: rotate(${move}deg) skewY(${sliceWidth}deg);`;
+  slice.style = `transform: rotate(${move}deg) skewY(${sliceWidth}deg); overflow: hidden; position: absolute; top: 0; right: 0; width: 50%; height: 50%; transform-origin: 0% 100%;`;
 
   let sliceContents = document.createElement("div");
   sliceContents.classList.add("slice-contents");
-  sliceContents.style = `background-color: ${color}; transform: skewY(-${sliceWidth}deg);`;
+  sliceContents.style = `background-color: ${color}; transform: skewY(-${sliceWidth}deg); position: absolute; left: -100%; width: 200%; height: 200%; border-radius: 50%; transition: 0.2s;`;
 
   let largeBlock = document.getElementsByClassName("pie_chart");
+  largeBlock.style =
+    "position: relative; border: dashed 1px; padding: 0; border-radius: 50%; list-style: none; margin-left: auto; margin-right: auto; margin-top: 10px;";
   slice.appendChild(sliceContents);
   largeBlock[0].appendChild(slice);
 
+  // Gets textblock so that we can show name and info of company
+  let textBlock = document.getElementsByClassName("textBlock");
+
   slice.addEventListener("mouseover", function () {
-    sliceContents.style = "background-color: red";
+    sliceContents.style.backgroundColor = "red";
+    textBlock[0].innerHTML = `${title} (${fraction}%)`;
   });
   slice.addEventListener("mouseout", function () {
-    sliceContents.style = "background-color: teal";
+    sliceContents.style.backgroundColor = color;
+    textBlock[0].innerHTML = "";
   });
 }

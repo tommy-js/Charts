@@ -18,4 +18,9 @@ export const data = [
     fraction: 55,
     color: "green",
   },
+  {
+    title: "test 3",
+    fraction: 42,
+    color: "red",
+  },
 ];
